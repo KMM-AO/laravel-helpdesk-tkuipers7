@@ -30,3 +30,6 @@ Route::view('/dit/is/nog/een/test','test.opdracht3b');
 Route::get('test/parameter/{id}', function ($id) {
     return view('test.opdracht3d')->with('param', $id);
 });
+Route::get('test/integer/{id}', function ($id) {
+    return view('test.opdracht3d')->with('param', $id);
+})->where('id','[1-9][0-9]*');
