@@ -26,3 +26,7 @@ Route::get('/dit/is/een/test', function () {
 });
 
 Route::view('/dit/is/nog/een/test','test.opdracht3b');
+
+Route::get('test/parameter/{id}', function ($id) {
+    return view('test.opdracht3d')->with('param', $id);
+});
