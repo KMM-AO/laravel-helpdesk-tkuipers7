@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,3 +49,7 @@ Route::get('/test/name/2', function () {
    return view('test.opdracht3f2') ;
 })->name('3f2');
 
+//opdracht 4a
+Route::get('dit/is/een/test/via/de/controller', [TestController::class, 'show3b']);
+
+Route::get('test/parameter/{id}/via/de/controller', [TestController::class, 'show3d']);
