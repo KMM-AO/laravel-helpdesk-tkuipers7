@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/greeting', function () {
     return '<h1>Hello World</h1>';
 });
+
+Route::get('/dit/is/een/test', function () {
+    return view('test.opdracht3b');
+});
