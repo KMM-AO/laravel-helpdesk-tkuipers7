@@ -24,3 +24,5 @@ Route::get('/greeting', function () {
 Route::get('/dit/is/een/test', function () {
     return view('test.opdracht3b');
 });
+
+Route::view('/dit/is/nog/een/test','test.opdracht3b');
