@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'baas@helpdesk.nl',
             'role_id' => Role::BOSS,
             'email_verified_at' => now(),
-            'password' => Hash::make('noorderpoort')
+            'password' => Hash::make('helpdesk')
         ]);
     }
 }
