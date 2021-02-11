@@ -13,4 +13,5 @@ class Role extends Model
         EMPLOYEE = 21,
         APPLICANT = 31,
         CUSTOMER = 41;
+
 }
