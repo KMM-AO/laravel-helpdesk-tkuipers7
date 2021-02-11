@@ -15,9 +15,21 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['id' => Role::BOSS, 'name' => 'baas']);
-        Role::create(['id' => Role::EMPLOYEE, 'name' => 'medewerker']);
-        Role::create(['id' => Role::APPLICANT, 'name' => 'sollicitant']);
-        Role::create(['id' => Role::CUSTOMER, 'name' => 'klant']);
+        Role::create([
+            'id' => Role::BOSS,
+            'name' => 'baas'
+        ]);
+        Role::create([
+            'id' => Role::EMPLOYEE,
+            'name' => 'medewerker'
+        ]);
+        Role::create([
+            'id' => Role::APPLICANT,
+            'name' => 'sollicitant'
+        ]);
+        Role::create([
+            'id' => Role::CUSTOMER,
+            'name' => 'klant'
+        ]);
     }
 }
