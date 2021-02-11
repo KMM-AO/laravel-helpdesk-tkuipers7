@@ -45,11 +45,11 @@
                                 name="password_confirmation" required />
             </div>
 
-            <!-- sollicitant -->
+            <!-- applicant -->
             <div class="block mt-4">
-                <label for="sollicitant" class="inline-flex items-center">
-                    <input id="sollicitant" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="sollicitant">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('sollicitant') }}</span>
+                <label for="applicant" class="inline-flex items-center">
+                    <input id="applicant" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="applicant">
+                    <span class="ml-2 text-sm text-gray-600">{{ __('I am applying for a job') }}.</span>
                 </label>
             </div>
 

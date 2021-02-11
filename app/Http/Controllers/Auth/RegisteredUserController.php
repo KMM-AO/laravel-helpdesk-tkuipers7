@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -42,7 +43,7 @@ class RegisteredUserController extends Controller
         Auth::login($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'role_id' => $request->sollicitant ? Role::APPLICANT : Role::CUSTOMER,
+            'role_id' => $request->has('applicant') ? Role::APPLICANT : Role::CUSTOMER,
             'password' => Hash::make($request->password),
         ]));
 
