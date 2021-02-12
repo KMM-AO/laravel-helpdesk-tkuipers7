@@ -15,7 +15,7 @@ class Role extends Model
         APPLICANT = 31,
         CUSTOMER = 41;
 
-    public function Role()
+    public function users()
     {
         return $this->hasMany(User::class);
     }
