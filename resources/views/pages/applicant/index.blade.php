@@ -29,7 +29,7 @@
 {{--                        @endforelse--}}
 {{--                        </tbody>--}}
 {{--                    </table>--}}
-
+                    @empty(!$applicants)
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
@@ -45,7 +45,7 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($applicants as $applicant)
+                        @foreach($applicants as $applicant)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -65,11 +65,13 @@
                                 </div>
                             </td>
                         </tr>
-                        @empty
-                            <p>{{ __('No applicants') }}</p>
-                        @endforelse
+                        @endforeach
                         </tbody>
                     </table>
+                        @else
+                            <p>{{ __('No applicants') }}</p>
+                    @endempty
+
                 </div>
             </div>
         </div>
