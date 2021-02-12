@@ -18,13 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth', 'prefix' => '/dashboard'],function() {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/dashboard/applicants', [ApplicantController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard.applicants');
+    Route::get('/applicants', [ApplicantController::class, 'index'])
+        ->middleware('can:list,App\Models\User')
+        ->name('dashboard.applicants');
+});
+
 
 
 
