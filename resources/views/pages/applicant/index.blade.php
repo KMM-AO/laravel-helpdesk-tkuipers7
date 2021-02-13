@@ -9,27 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-{{--                    <table class="table w-full">--}}
-{{--                        <thead>--}}
-{{--                        <tr class="text-left">--}}
-{{--                            <th>Name</th>--}}
-{{--                            <th>Email</th>--}}
-{{--                            <th>Date</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                        <tbody>--}}
-{{--                        @forelse($applicants as $applicant)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $applicant->name }}</td>--}}
-{{--                                <td>{{ $applicant->email }}</td>--}}
-{{--                                <td>{{ $applicant->created_at->toFormattedDateString() }}</td>--}}
-{{--                            </tr>--}}
-{{--                            @empty--}}
-{{--                                <p>{{ __('No applicants') }}</p>--}}
-{{--                        @endforelse--}}
-{{--                        </tbody>--}}
-{{--                    </table>--}}
-                    @empty(!$applicants)
+                    @forelse([] as $applicant)
+                        @once
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
@@ -45,7 +26,7 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($applicants as $applicant)
+                        @endonce
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -65,12 +46,11 @@
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                            <p>{{ __('No applicants') }}</p>
+                        @endforelse
                         </tbody>
                     </table>
-                        @else
-                            <p>{{ __('No applicants') }}</p>
-                    @endempty
 
                 </div>
             </div>
