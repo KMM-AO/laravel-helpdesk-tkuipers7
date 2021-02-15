@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @can('list', App\Models\User::class)
+                    @can('list', App\Models\Applicant::class)
                     <x-nav-link :href="route('dashboard.applicants')" :active="request()->routeIs('dashboard.applicants')">
                         {{ __('Applicants') }}
                     </x-nav-link>

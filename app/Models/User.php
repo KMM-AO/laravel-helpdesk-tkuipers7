@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function Applicant()
+    {
+        return $this->hasOne(Applicant::class, 'user_id');
+    }
 }

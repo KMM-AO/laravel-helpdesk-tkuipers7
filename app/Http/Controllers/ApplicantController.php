@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use App\Models\Role;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ApplicantController extends Controller
 {
    public function index()
    {
-       $role = Role::find(Role::APPLICANT);
-       $users = $role->users()->orderBy('created_at', 'desc')->get();
+       $applicants = Applicant::whereHas(
+           'user',
+           function (Builder $query)
+           {
+               $query->where('role_id',Role::APPLICANT);
+           }
+       )->orderBy('created_at', 'desc')
+           ->get();
+
        return view('pages.applicant.index')
-           ->with('applicants', $users);
+           ->with('applicants', $applicants);
    }
 }

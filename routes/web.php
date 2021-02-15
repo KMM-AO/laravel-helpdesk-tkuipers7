@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth', 'prefix' => '/dashboard'],function() {
     })->name('dashboard');
 
     Route::get('/applicants', [ApplicantController::class, 'index'])
-        ->middleware('can:list,App\Models\User')
+        ->middleware('can:list,App\Models\Applicant')
         ->name('dashboard.applicants');
 });
 
