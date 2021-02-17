@@ -21,6 +21,11 @@ class CustomerSeeder extends Seeder
             ->where('role_id', '=',Role::CUSTOMER)
             ->delete();
 
-        User::factory()->count(10)->create();
+        User::factory()
+            ->count(10)
+            ->state([
+                'seeded' => 1,
+            ])
+            ->create();
     }
 }
