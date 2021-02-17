@@ -36,12 +36,22 @@ Route::group(['middleware' => 'auth'], function() {
 
 
         //applicant routes
-        Route::group(['prefix' => '/applicant'], function () {
+        Route::group(['prefix' => '/applicant/{applicant}'], function () {
 
             // promote applicant to employee
-            Route::put('/{applicant}/employ', [ApplicantController::class, 'employ'])
+            Route::put('/employ', [ApplicantController::class, 'employ'])
                 ->middleware('can:employ,applicant')
                 ->name('applicant.employ');
+
+            // queue a applicant
+            Route::put('/queue', [ApplicantController::class, 'queue'])
+                ->middleware('can:queue,applicant')
+                ->name('applicant.queue');
+
+            // delete a applicant
+            Route::delete('/reject', [ApplicantController::class, 'reject'])
+                ->middleware('can:reject,applicant')
+                ->name('applicant.reject');
         });
     });
 });

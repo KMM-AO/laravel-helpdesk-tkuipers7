@@ -16,7 +16,8 @@ class ApplicantController extends Controller
            {
                $query->where('role_id',Role::APPLICANT);
            }
-       )->orderBy('created_at', 'desc')
+       )->orderBy('queued','asc')
+           ->orderBy('created_at', 'desc')
            ->get();
 
        return view('pages.applicant.index')
@@ -28,7 +29,22 @@ class ApplicantController extends Controller
         $applicant->user->role_id = Role::EMPLOYEE;
         $applicant->user->save();
 
-        return back()->with('status', $applicant->user->name . ' is hired.');
+        return back()->with('status', $applicant->user->name . ' ' . __('is hired') . '.');
+   }
+
+   public function reject(Applicant $applicant)
+   {
+       $user = $applicant->User;
+       $applicant->delete();
+       $user->delete();
+       return back()->with('status', $applicant->user->name . ' ' . __('is rejected') . '.');
+   }
+
+   public function queue(Applicant $applicant)
+   {
+       $applicant->queued = 1;
+       $applicant->save();
+       return back()->with('status', $applicant->user->name . ' ' . __('is queued') . '.');
    }
 
 }
