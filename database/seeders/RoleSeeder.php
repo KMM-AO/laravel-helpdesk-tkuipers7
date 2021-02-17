@@ -19,14 +19,17 @@ class RoleSeeder extends Seeder
             'id' => Role::BOSS,
             'name' => 'baas'
         ]);
+
         Role::create([
             'id' => Role::EMPLOYEE,
             'name' => 'medewerker'
         ]);
+
         Role::create([
             'id' => Role::APPLICANT,
             'name' => 'sollicitant'
         ]);
+
         Role::create([
             'id' => Role::CUSTOMER,
             'name' => 'klant'
