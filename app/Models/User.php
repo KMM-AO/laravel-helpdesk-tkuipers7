@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'seeded',
     ];
 
     /**
@@ -42,15 +43,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'seeded' => 'boolean',
     ];
 
-    public function Role()
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function Applicant()
+    public function applicant()
     {
-        return $this->hasOne(Applicant::class, 'user_id');
+        return $this->hasOne(Applicant::class);
     }
 }
