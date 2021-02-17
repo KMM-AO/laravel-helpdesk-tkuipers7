@@ -15,7 +15,8 @@ class ApplicantFactory extends Factory
      * @var string
      */
     protected $model = Applicant::class;
-    protected $order = 1;
+    private $order = 1;
+    private $seeded = 0;
     /**
      * Define the model's default state.
      *
@@ -27,9 +28,22 @@ class ApplicantFactory extends Factory
             'user_id' => User::factory()->state([
                 'role_id' => Role::APPLICANT,
                 'email' => 'applicant'. $this->order++ . '@helpdesk.nl',
-                'seeded' => 1
+                'seeded' => $this->seeded,
                 ]),
             'queued' => 0
         ];
+    }
+
+    public function seeded()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'user_id' => User::factory()->state([
+                    'role_id' => Role::APPLICANT,
+                    'email' => 'applicant'. $this->order++ . '@helpdesk.nl',
+                    'seeded' => '1',
+                    ]),
+            ];
+        });
     }
 }
