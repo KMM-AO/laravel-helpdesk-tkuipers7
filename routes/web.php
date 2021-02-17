@@ -18,14 +18,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => '/dashboard'],function() {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+// auth routes
+Route::group(['middleware' => 'auth'], function() {
 
-    Route::get('/applicants', [ApplicantController::class, 'index'])
-        ->middleware('can:list,App\Models\Applicant')
-        ->name('dashboard.applicants');
+    // dashboard routes
+    Route::group(['prefix' => '/dashboard'], function () {
+
+        // main dashboard
+        Route::get('/', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        // index applicants
+        Route::get('/applicant/index', [ApplicantController::class, 'index'])
+            ->middleware('can:list,App\Models\Applicant')
+            ->name('dashboard.applicant.index');
+
+
+        //applicant routes
+        Route::group(['prefix' => '/applicant'], function () {
+
+            // promote applicant to employee
+            Route::put('/{applicant}/employ', [ApplicantController::class, 'employ'])
+                ->middleware('can:employ,applicant')
+                ->name('applicant.employ');
+        });
+    });
 });
 
 

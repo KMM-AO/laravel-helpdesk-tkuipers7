@@ -22,4 +22,13 @@ class ApplicantController extends Controller
        return view('pages.applicant.index')
            ->with('applicants', $applicants);
    }
+
+   public function employ(Applicant $applicant)
+   {
+        $applicant->user->role_id = Role::EMPLOYEE;
+        $applicant->user->save();
+
+        return back()->with('status', $applicant->user->name . ' is hired.');
+   }
+
 }
