@@ -8,7 +8,7 @@
     </td>
     <td class="px-6 py-4 whitespace-nowrap">
         <div class="text-sm text-gray-900">
-            <x-link :href="('mailtto:' . $applicant->user->email">
+            <x-link :href="('mailto:' . $applicant->user->email)">
                 {{ $applicant->user->email }}
             </x-link>
         </div>
