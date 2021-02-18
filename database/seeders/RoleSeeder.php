@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -17,22 +16,22 @@ class RoleSeeder extends Seeder
     {
         Role::create([
             'id' => Role::BOSS,
-            'name' => 'baas'
+            'name' => 'Boss'
         ]);
 
         Role::create([
             'id' => Role::EMPLOYEE,
-            'name' => 'medewerker'
+            'name' => 'Employee'
         ]);
 
         Role::create([
             'id' => Role::APPLICANT,
-            'name' => 'sollicitant'
+            'name' => 'Applicant'
         ]);
 
         Role::create([
             'id' => Role::CUSTOMER,
-            'name' => 'klant'
+            'name' => 'Costumer'
         ]);
     }
 }

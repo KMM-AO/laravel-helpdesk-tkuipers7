@@ -6,7 +6,6 @@
     'icon' => 'far fa-smile',
     'applicant'
 ])
-{{--@dd($applicant)--}}
 <form action="{{route($route, ['applicant' => $applicant])}}" {{ $attributes->merge(['class' => 'inline-flex', 'method' => strtoupper($method) === 'GET' ? 'GET' : 'POST']) }}>
     @csrf
     @method($method)

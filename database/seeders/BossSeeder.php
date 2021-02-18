@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BossSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class BossSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->where('role_id','=',Role::BOSS)->where('seeded','=',1)->delete();
         User::factory()
             ->state([
                 'name' => 'Tristan',
