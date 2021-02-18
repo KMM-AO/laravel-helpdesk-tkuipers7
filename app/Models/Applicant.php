@@ -9,6 +9,10 @@ class Applicant extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id'
+    ];
+
     protected $table = 'applicants';
     protected $primaryKey = 'user_id';
     public $incrementing = false;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -46,6 +47,13 @@ class RegisteredUserController extends Controller
             'role_id' => $request->has('applicant') ? Role::APPLICANT : Role::CUSTOMER,
             'password' => Hash::make($request->password),
         ]));
+
+        if ($user->role_id === Role::APPLICANT)
+        {
+            Applicant::create([
+                'user_id' => $user->id
+            ]);
+        }
 
         event(new Registered($user));
 
