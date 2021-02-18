@@ -7,9 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('status'))
-                <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
-            @endif
+            <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -61,25 +59,22 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{-- employ button --}}
 {{--                                @dd($applicant)--}}
-                                <x-applicant.employ-icon
-                                    action="{{route('applicant.employ', ['applicant' => $applicant])}}"
-                                    name="employ"
-                                    :can="{{'queue', $applicant}}"
-                                />
+                                <x-applicant.employ-button :applicant="$applicant"/>
 
                                 {{-- queue button --}}
-                                <x-applicant.employ-icon
-                                    action="{{ route('applicant.queue', ['applicant' => $applicant]) }}"
-                                    color="yellow-400"
-                                    :can="{{ 'queue', $applicant }}"
-                                />
+                                <x-applicant.employ-button
+                                    :applicant="$applicant"
+                                    :policy="'queue'"
+                                    :route="'applicant.queue'"
+                                    :color="'yellow-500'" />
 
                                 {{-- reject button --}}
-                                <x-applicant.employ-icon
-                                    action="{{ route('applicant.reject', ['applicant' => $applicant]) }}"
-                                    method="DELETE"
-                                    color="red-500"
-                                    :can="{{ 'reject', $applicant }}"
+                                <x-applicant.employ-button
+                                    :applicant="$applicant"
+                                    :route="'applicant.reject'"
+                                    :method="'DELETE'"
+                                    :color="'red-500'"
+                                    :policy="'reject'"
                                 />
                             </td>
                         </tr>
