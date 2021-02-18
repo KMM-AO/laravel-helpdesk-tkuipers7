@@ -58,7 +58,6 @@
                             {{-- employ buttons --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{-- employ button --}}
-{{--                                @dd($applicant)--}}
                                 <x-applicant.employ-button :applicant="$applicant"/>
 
                                 {{-- queue button --}}

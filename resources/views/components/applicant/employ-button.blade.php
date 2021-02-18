@@ -6,10 +6,11 @@
     'icon' => 'far fa-smile',
     'applicant'
 ])
-<form action="{{route($route, ['applicant', $applicant])}}" {{ $attributes->merge(['class' => 'inline-flex', 'method' => strtoupper($method) === 'GET' ? 'GET' : 'POST']) }}>
+{{--@dd($applicant)--}}
+<form action="{{route($route, ['applicant' => $applicant])}}" {{ $attributes->merge(['class' => 'inline-flex', 'method' => strtoupper($method) === 'GET' ? 'GET' : 'POST']) }}>
     @csrf
     @method($method)
-    @can($policy,$applicant)
+    @can($policy, $applicant)
     <button class="{{ "text-$color" }}">
         <i class="{{$icon}}"></i>
     </button>
