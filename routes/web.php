@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,26 +34,39 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/applicant/index', [ApplicantController::class, 'index'])
             ->middleware('can:list,App\Models\Applicant')
             ->name('dashboard.applicant.index');
+    });
 
+    //applicant routes
+    Route::group(['prefix' => '/applicant/{applicant}'], function () {
 
-        //applicant routes
-        Route::group(['prefix' => '/applicant/{applicant}'], function () {
+        // promote applicant to employee
+        Route::put('/employ', [ApplicantController::class, 'employ'])
+            ->middleware('can:employ,applicant')
+            ->name('applicant.employ');
 
-            // promote applicant to employee
-            Route::put('/employ', [ApplicantController::class, 'employ'])
-                ->middleware('can:employ,applicant')
-                ->name('applicant.employ');
+        // queue a applicant
+        Route::put('/queue', [ApplicantController::class, 'queue'])
+            ->middleware('can:queue,applicant')
+            ->name('applicant.queue');
 
-            // queue a applicant
-            Route::put('/queue', [ApplicantController::class, 'queue'])
-                ->middleware('can:queue,applicant')
-                ->name('applicant.queue');
+        // delete a applicant
+        Route::delete('/reject', [ApplicantController::class, 'reject'])
+            ->middleware('can:reject,applicant')
+            ->name('applicant.reject');
+    });
 
-            // delete a applicant
-            Route::delete('/reject', [ApplicantController::class, 'reject'])
-                ->middleware('can:reject,applicant')
-                ->name('applicant.reject');
-        });
+    // ticket routes
+    Route::group(['prefix' => '/ticket'], function () {
+
+        // store a ticket
+        Route::post('/', [TicketController::class, 'store'])
+           ->middleware('can:create,App\Models\ticket')
+           ->name('ticket.store');
+
+        // template to create a ticket
+        Route::get('/create', [TicketController::class, 'create'])
+           ->middleware('can:create,App\Models\ticket')
+           ->name('ticket.create');
     });
 });
 
