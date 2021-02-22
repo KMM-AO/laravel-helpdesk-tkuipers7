@@ -4,23 +4,41 @@
             {{ __('Create a ticket') }}
         </h2>
     </x-slot>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <form method="POST" action="{{ route('register') }}" class="p-14">
+                <form method="POST" action="{{ route('ticket.store') }}" class="p-14">
                 @csrf
 
-                    <!-- Name -->
+                    <!-- Subject -->
                     <div>
-                        <x-label for="name" :value="__('Name')" />
+                        <x-errored-label for="subject" :value="__('Subject')" :field="'subject'" />
 
-                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                        <x-input id="subject" class="block mt-1 w-full" type="text" name="subject" :value="old('subject')" autofocus />
+                    </div>
+
+                    <!-- Content -->
+                    <div class="mt-4">
+                        <x-errored-label for="contents" :value="__('Contents')" :field="'contents'" />
+
+                        <x-textarea id="contents" class="block mt-1 w-full" name="contents">{{ old('contents') }}</x-textarea>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mt-4">
+                        <x-errored-label for="category" :value="__('Category')" :field="'category'"/>
+
+                        <x-select id="category" size="{{ $categories->count() }}" class="block mt-1 w-full" name="category">
+                            @foreach($categories as $category)
+                                <option {{ $category->id == old('category_id') ? 'selected' : '' }} value="{{$category->id}}" >{{ $category->name }}</option>
+                            @endforeach
+                        </x-select>
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
                         <x-button class="ml-4">
-                            {{ __('Register') }}
+                            {{ __('Create a ticket') }}
                         </x-button>
                     </div>
                 </form>
