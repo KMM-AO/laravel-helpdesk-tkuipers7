@@ -23,9 +23,6 @@ class CustomerSeeder extends Seeder
 
         User::factory()
             ->count(10)
-            ->state([
-                'seeded' => 1,
-            ])
             ->create();
     }
 }

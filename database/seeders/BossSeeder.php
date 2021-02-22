@@ -22,7 +22,6 @@ class BossSeeder extends Seeder
                 'name' => 'Tristan',
                 'email' => 'baas@helpdesk.nl',
                 'role_id' => Role::BOSS,
-                'seeded' => 1
             ])
             ->create();
     }

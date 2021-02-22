@@ -22,6 +22,6 @@ class ApplicantSeeder extends Seeder
             ->where('users.seeded','=','1')
             ->delete();
 
-        Applicant::factory()->seeded()->count(10)->create();
+        Applicant::factory()->count(10)->create();
     }
 }
