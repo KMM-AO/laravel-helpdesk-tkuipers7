@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'role_id' => Role::CUSTOMER,
             'password' => Hash::make('helpdesk'), // password
+            'seeded' => 1,
             'remember_token' => Str::random(10),
         ];
     }
