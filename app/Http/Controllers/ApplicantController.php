@@ -34,9 +34,10 @@ class ApplicantController extends Controller
 
    public function reject(Applicant $applicant)
    {
-       $user = $applicant->User;
        $applicant->delete();
-       $user->delete();
+
+       $applicant->user->delete();
+
        return back()->with('status', $applicant->user->name . ' ' . __('is rejected') . '.');
    }
 
