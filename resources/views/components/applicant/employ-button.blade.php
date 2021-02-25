@@ -1,9 +1,9 @@
 @props([
-    'color' => 'green-500',
-    'method' => 'PUT',
-    'policy' => 'employ',
-    'route' => 'applicant.employ',
-    'icon' => 'far fa-smile',
+    'color',
+    'method',
+    'policy',
+    'route',
+    'icon',
     'applicant'
 ])
 <form action="{{route($route, ['applicant' => $applicant])}}" {{ $attributes->merge(['class' => 'inline-flex', 'method' => strtoupper($method) === 'GET' ? 'GET' : 'POST']) }}>

@@ -58,22 +58,33 @@
                             {{-- employ buttons --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{-- employ button --}}
-                                <x-applicant.employ-button :applicant="$applicant"/>
+                                <x-applicant.employ-button
+                                    :route="'applicant.employ'"
+                                    :method="'PUT'"
+                                    :policy="'employ'"
+                                    :applicant="$applicant"
+                                    :color="'green-500'"
+                                    :icon="'far fa-smile'"
+                                />
 
                                 {{-- queue button --}}
                                 <x-applicant.employ-button
-                                    :applicant="$applicant"
-                                    :policy="'queue'"
                                     :route="'applicant.queue'"
-                                    :color="'yellow-500'" />
+                                    :method="'PUT'"
+                                    :policy="'queue'"
+                                    :applicant="$applicant"
+                                    :color="'yellow-500'"
+                                    :icon="'far fa-smile'"
+                                />
 
                                 {{-- reject button --}}
                                 <x-applicant.employ-button
-                                    :applicant="$applicant"
                                     :route="'applicant.reject'"
                                     :method="'DELETE'"
-                                    :color="'red-500'"
                                     :policy="'reject'"
+                                    :applicant="$applicant"
+                                    :color="'red-500'"
+                                    :icon="'far fa-smile'"
                                 />
                             </td>
                         </tr>
