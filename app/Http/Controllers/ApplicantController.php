@@ -42,7 +42,7 @@ class ApplicantController extends Controller
 
    public function queue(Applicant $applicant)
    {
-       $applicant->queued = 1;
+       $applicant->queued = true;
        $applicant->save();
        return back()->with('status', $applicant->user->name . ' ' . __('is queued') . '.');
    }
