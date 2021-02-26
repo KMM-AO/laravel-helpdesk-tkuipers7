@@ -13,7 +13,6 @@ class Applicant extends Model
         'user_id'
     ];
 
-    protected $table = 'applicants';
     protected $primaryKey = 'user_id';
     public $incrementing = false;
     protected $casts = [

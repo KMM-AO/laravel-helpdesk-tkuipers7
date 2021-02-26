@@ -15,5 +15,4 @@ class Ticket extends Model
         'category_id',
         'customer_user_id'
     ];
-    protected $table = 'tickets';
 }
