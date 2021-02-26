@@ -24,7 +24,7 @@ class TicketController extends Controller
         $ticket->category_id = $request->category;
         $request->user()->created_tickets()->save($ticket);
 
-        return redirect('dashboard')->with('status', 'Ticket is saved');
+        return redirect()->route('dashboard')->with('status', 'Ticket is saved');
     }
 
     public function create()
