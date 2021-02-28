@@ -31,7 +31,7 @@
 
                         <x-select id="category" size="{{ $categories->count() }}" class="block mt-1 w-full" name="category">
                             @foreach($categories as $category)
-                                <option {{ $category->id == old('category_id') ? 'selected' : '' }} value="{{$category->id}}" >{{ $category->name }}</option>
+                                <option {{ $category->id == old('category') ? 'selected' : '' }} value="{{$category->id}}" >{{ $category->name }}</option>
                             @endforeach
                         </x-select>
                     </div>
