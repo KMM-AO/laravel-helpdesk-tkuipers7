@@ -18,4 +18,9 @@ class Ticket extends Model
         'category_id',
         'customer_user_id'
     ];
+
+    public function processing_users()
+    {
+        return $this->belongsToMany(User::class,'ticket_employee_user','ticket_id','employee_user_id');
+    }
 }
