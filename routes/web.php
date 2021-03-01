@@ -67,6 +67,12 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/create', [TicketController::class, 'create'])
            ->middleware('can:create,App\Models\ticket')
            ->name('ticket.create');
+
+        // index of tickets
+        Route::get('/index/{status}', [TicketController::class, 'index'])
+            ->middleware('can:list,App\Models\ticket')
+            ->name('ticket.index')
+            ->where('status','open|closed|waiting|processed',);
     });
 });
 

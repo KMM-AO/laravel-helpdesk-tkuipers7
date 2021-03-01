@@ -24,4 +24,16 @@ class TicketPolicy
     {
         return $auth_user->role_id == Role::CUSTOMER;
     }
+
+    public function list(User $auth_user)
+    {
+        return in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE, Role::CUSTOMER]);
+    }
+
+    public function click_list(User $auth_user, $status)
+    {
+        if (in_array($auth_user->role_id,[Role::BOSS,Role::EMPLOYEE])) return in_array($status, ['waiting', 'processed', 'closed']);
+        if (in_array($auth_user->role_id,[Role::CUSTOMER])) return in_array($status, ['open', 'closed']);
+        return false;
+    }
 }

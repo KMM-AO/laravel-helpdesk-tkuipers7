@@ -31,4 +31,12 @@ class TicketController extends Controller
     {
         return view('pages.ticket.create')->with('categories', Category::all());
     }
+
+    public function index($status)
+    {
+        $tickets = Ticket::all();
+        return view('pages.ticket.index')
+            ->with('status' , $status)
+            ->with('tickets' ,$tickets);
+    }
 }
