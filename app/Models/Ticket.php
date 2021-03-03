@@ -23,4 +23,21 @@ class Ticket extends Model
     {
         return $this->belongsToMany(User::class,'ticket_employee_user','ticket_id','employee_user_id');
     }
+
+    public function creating_user()
+    {
+        return $this->belongsTo(User::class,'customer_user_id');
+    }
+
+    public function status()
+    {
+        if ($this->trashed()) return 'closed';
+        if ($this->processing_users->isEmpty()) return 'waiting';
+        return 'processed';
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
