@@ -38,6 +38,12 @@ class TicketPolicy
         return false;
     }
 
+    public function read(User $auth_user, Ticket $ticket)
+    {
+        if (in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE])) return true;
+        return $ticket->creating_user()->is($auth_user);
+    }
+
     public function read_employee_names(User $auth_user)
     {
         return in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE]);

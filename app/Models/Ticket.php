@@ -31,9 +31,9 @@ class Ticket extends Model
 
     public function status()
     {
-        if ($this->trashed()) return 'closed';
-        if ($this->processing_users->isEmpty()) return 'waiting';
-        return 'processed';
+        if ($this->trashed()) return 'Closed';
+        if ($this->processing_users->isEmpty()) return 'Waiting';
+        return 'Processed';
     }
 
     public function category()

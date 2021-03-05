@@ -73,6 +73,11 @@ Route::group(['middleware' => 'auth'], function() {
             ->middleware('can:list,App\Models\ticket')
             ->name('ticket.index')
             ->where('status','open|closed|waiting|processed',);
+
+        // read a ticket
+        Route::get('/{any_ticket}', [TicketController::class, 'show'])
+            ->middleware('can:read,any_ticket')
+            ->name('ticket.show');
     });
 });
 

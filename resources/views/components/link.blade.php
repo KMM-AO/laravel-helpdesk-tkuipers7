@@ -1,5 +1,5 @@
 @php
-$classes = 'text-gray-900 hover:text-gray-500';
+$classes = 'underline text-blue-500 hover:text-blue-800';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>

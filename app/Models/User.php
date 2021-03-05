@@ -58,7 +58,29 @@ class User extends Authenticatable
         return $this->belongsToMany(Ticket::class,'ticket_employee_user','employee_user_id');
     }
 
+    public function color($colors = ['gray', 'indigo', 'green', 'red', 'yellow',  'blue',  'purple', 'pink'])
+    {
+        return $colors[strlen($this->name) % count($colors)];
+    }
 
+    public function initials()
+    {
+        $regexs =
+            [
+                '/[A-Z]/',
+                '/[a-z]/',
+                '/.+/'
+            ];
+        $count = 0;
+        do
+        {
+            preg_match_all($regexs[$count], $this->name, $matches);
+            $count++;
+        }
+        while(empty($matches[0]));
+
+        return $matches[0][0] . (isset($matches[0][1]) ? $matches[0][1] : '');
+    }
 
     public function applicant()
     {

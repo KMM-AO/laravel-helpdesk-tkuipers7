@@ -42,7 +42,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($tickets as $ticket)
-                        <tr>
+                        <tr class="hover:bg-gray-100">
                             {{-- date --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -54,9 +54,9 @@
                             {{-- subject --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <x-link :href="route('ticket.show', ['any_ticket' => $ticket])" class="text-sm font-medium text-gray-900">
                                         {{ $ticket->subject}}
-                                    </div>
+                                    </x-link>
                                 </div>
                             </td>
                             {{-- category --}}
@@ -109,6 +109,5 @@
                 </table>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Ticket;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -35,6 +36,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::bind('any_ticket', function ($value) {
+            return Ticket::withTrashed()->findOrFail($value);
+        });
+
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
