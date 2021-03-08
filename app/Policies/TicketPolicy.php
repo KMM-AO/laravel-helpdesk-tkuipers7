@@ -41,6 +41,6 @@ class TicketPolicy
     public function read(User $auth_user, Ticket $ticket)
     {
         if (in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE])) return true;
-        return $ticket->creating_user()->is($auth_user);
+        return $auth_user->is($ticket->creating_user);
     }
 }
