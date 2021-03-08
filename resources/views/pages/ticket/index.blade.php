@@ -32,7 +32,7 @@
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{__('Status')}}
                         </th>
-                        @can('read_employee_names',\App\Models\Ticket::class)
+                        @can('read_employee_names')
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{__('Employees')}}
@@ -84,7 +84,7 @@
                                 </div>
                             </td>
                             {{-- employees --}}
-                            @can('read_employee_names',$ticket)
+                            @can('read_employee_names')
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="text-sm font-medium text-gray-900">

@@ -34,7 +34,6 @@
                                     {{ $ticket->created_at->toFormattedDateString() }}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     {{-- right --}}
@@ -47,7 +46,7 @@
                             <strong class="text-xl">{{ $ticket->status() }}</strong>
                         </div>
                         {{-- employees --}}
-                        @can('read_employee_names', $ticket)
+                        @can('read_employee_names')
                             <div class="text-lg">
                                 {{ __('Processed by') . ' ' . ($ticket->processing_users->isNotEmpty() ? $ticket->processing_users()->pluck('name')->join(', ',' and ') : __('Nobody'))}}
                             </div>

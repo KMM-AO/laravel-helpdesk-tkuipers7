@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Role;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +43,12 @@ class RouteServiceProvider extends ServiceProvider
             return Ticket::withTrashed()->findOrFail($value);
         });
 
+        Gate::define(
+            'read_employee_names',
+            function(User $auth_user) {
+                return in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE]);
+            }
+        );
 
         $this->configureRateLimiting();
 
