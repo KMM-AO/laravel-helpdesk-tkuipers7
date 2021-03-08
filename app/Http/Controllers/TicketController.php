@@ -35,7 +35,7 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        return view('pages.ticket.ticket_index')->with('ticket', $ticket);
+        return view('pages.ticket.ticket_show')->with('ticket', $ticket);
     }
 
     public function index(Request $request,$status)

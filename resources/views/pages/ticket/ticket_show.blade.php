@@ -62,6 +62,10 @@
                         </div>
                     </div>
                 </div>
+                {{-- comments --}}
+                <div>
+                    <a href="#commentform">
+                </div>
             </div>
         </div>
     </div>
