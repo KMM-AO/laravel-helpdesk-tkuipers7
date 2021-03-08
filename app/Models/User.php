@@ -67,17 +67,12 @@ class User extends Authenticatable
     {
         $regexs =
             [
-                '/[A-Z]/',
-                '/[a-z]/',
-                '/.+/'
+                '[A-Z]',
+                '[a-z]',
+                '\S'
             ];
         $count = 0;
-        do
-        {
-            preg_match_all($regexs[$count], $this->name, $matches);
-            $count++;
-        }
-        while(empty($matches[0]));
+        do {} while(!preg_match_all('/' . $regexs[$count++] . '/', $this->name, $matches));
 
         return $matches[0][0] . (isset($matches[0][1]) ? $matches[0][1] : '');
     }
