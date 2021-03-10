@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     //applicant routes
-    Route::group(['prefix' => 'applicant', 'name' => 'applicant.'], function () {
+    Route::group(['prefix' => 'applicant', 'as' => 'applicant.'], function () {
 
         // index applicants
         Route::get('/index', [ApplicantController::class, 'index'])
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     // ticket routes
-    Route::group(['prefix' => 'ticket', 'name' => 'ticket.'], function () {
+    Route::group(['prefix' => 'ticket', 'as' => 'ticket.'], function () {
 
         // store a ticket
         Route::post('/', [TicketController::class, 'store'])
