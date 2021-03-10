@@ -69,16 +69,24 @@
                         <div class="flex" id="comment{{ $comment->id }}">
                             {{-- comment user --}}
                             <div class="flex bg-gray-50 p-6">
-                                <x-user-avatar :user="$comment->user" :colors="config('custom.user_palette')" class="h-12 w-12"/>
+                                @can('read_user_info',$comment)
+                                    <x-user-avatar :user="$comment->user" :colors="config('custom.user_palette')" class="h-12 w-12"/>
+                                @else
+                                    <x-application-logo class="block h-12 w-auto" />
+                                @endcan
                                 <div class="flex flex-col ml-4">
                                     <span class="text-lg">
-                                        {{ $comment->user->name }}
+                                        @can('read_user_info',$comment)
+                                            {{ $comment->user->name }}
+                                        @else
+                                            {{ __('Helpdesk') }}
+                                        @endcan
                                     </span>
                                     <span class="text-sm text-gray-400">
                                         {{
                                             \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))
                                                 ->diff(\Carbon\Carbon::now())
-                                                ->format('%i' . ' ' . __('minutes ago'))}}
+                                                ->format('%h' . ' ' . __('hours') . ' ' . __('and') . ' ' . '%i' . ' ' . __('minutes ago'))}}
                                     </span>
                                 </div>
                             </div>
@@ -102,7 +110,7 @@
                                 <x-textarea id="contents" class="block mt-1 w-full" name="contents">{{ old('contents') }}</x-textarea>
                             </div>
                         </div>
-                        <div class="flex justify-end mt-1">
+                        <div class="flex justify-end mt-4">
                             <x-button>
                                 {{ __('Send your comment') }}
                             </x-button>
