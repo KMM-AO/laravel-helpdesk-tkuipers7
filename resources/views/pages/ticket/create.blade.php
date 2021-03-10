@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <form method="POST" action="{{ route('ticket.store') }}" class="p-14">
                 @csrf
-
+                @method('POST')
                     <!-- Subject -->
                     <div>
                         <x-errored-label for="subject" :value="__('Subject')" :field="'subject'" />

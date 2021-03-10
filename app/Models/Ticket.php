@@ -29,6 +29,16 @@ class Ticket extends Model
         return $this->belongsTo(User::class,'customer_user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function status()
     {
         if ($this->trashed()) return 'Closed';
@@ -36,8 +46,5 @@ class Ticket extends Model
         return 'Processed';
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+
 }

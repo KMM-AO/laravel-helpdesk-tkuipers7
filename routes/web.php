@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,12 +79,12 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/{any_ticket}', [TicketController::class, 'show'])
             ->middleware('can:read,any_ticket')
             ->name('ticket.show');
+
+        // store a comment on a ticket
+        Route::post('/{ticket}/comment', [CommentController::class, 'store'])
+            ->middleware('can:comment,ticket')
+            ->name('ticket.comment.store');
     });
 });
 
-
-
-
 require __DIR__.'/auth.php';
-
-

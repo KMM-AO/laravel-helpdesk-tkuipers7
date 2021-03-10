@@ -43,4 +43,9 @@ class TicketPolicy
         if (in_array($auth_user->role_id, [Role::BOSS, Role::EMPLOYEE])) return true;
         return $auth_user->is($ticket->creating_user);
     }
+
+    public function comment(User $auth_user, Ticket $ticket)
+    {
+        return $auth_user->is($ticket->creating_user) || $ticket->processing_users->contains($auth_user);
+    }
 }

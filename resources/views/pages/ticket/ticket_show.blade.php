@@ -4,7 +4,7 @@
             {{ __('Ticket') }}
         </h2>
     </x-slot>
-
+    <x-auth-validation-errors class="mb-4" :errors="$errors" />
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 {{-- bottom --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex flex-column">
+                <div class="bg-white overflow-hidden shadow-sm p-6 flex flex-column">
                     {{-- content --}}
                     <div class="flex-1">
                         <div class="text-lg">
@@ -63,9 +63,26 @@
                     </div>
                 </div>
                 {{-- comments --}}
-                <div>
-                    <a href="#commentform">
+                @can('comment',$ticket)
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex flex-column">
+                    <a href="#commentform" class="w-full"/>
+                    <form action="{{route('ticket.comment.store',['ticket' => $ticket])}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <div>
+                            <x-errored-label for="contents" :value="__('Comment')" :field="'contents'" class="block text-lg font-medium text-gray-700"/>
+                            <div class="mt-1 w-full">
+                                <x-textarea id="contents" class="block mt-1 w-full" name="contents">{{ old('contents') }}</x-textarea>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-1">
+                            <x-button>
+                                {{ __('Send your comment') }}
+                            </x-button>
+                        </div>
+                    </form>
                 </div>
+                @endcan
             </div>
         </div>
     </div>

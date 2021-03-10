@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Ticket::class,'ticket_employee_user','employee_user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function color($colors = ['gray', 'indigo', 'green', 'red', 'yellow',  'blue',  'purple', 'pink'])
     {
         return $colors[strlen($this->name) % count($colors)];
