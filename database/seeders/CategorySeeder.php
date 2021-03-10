@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::create([
-            'name' => 'Klacht'
+            'name' => 'Complaint'
         ]);
 
         Category::create([
@@ -23,7 +23,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'name' => 'Vraag'
+            'name' => 'Question'
         ]);
     }
 }
