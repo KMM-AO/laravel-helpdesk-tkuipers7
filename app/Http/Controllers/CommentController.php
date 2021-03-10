@@ -20,6 +20,6 @@ class CommentController extends Controller
         $comment->ticket()->associate($ticket);
         $request->user()->comments()->save($comment);
 
-        return back()->with('status', 'comment is saved');
+        return redirect()->route('ticket.show',"#$comment->id")->with('status', 'comment is saved');
     }
 }

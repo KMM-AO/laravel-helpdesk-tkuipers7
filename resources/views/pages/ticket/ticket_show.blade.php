@@ -4,12 +4,11 @@
             {{ __('Ticket') }}
         </h2>
     </x-slot>
-    <x-auth-validation-errors class="mb-4" :errors="$errors" />
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
             <div class="divide-y divide-gray-300 divide-solid">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-t-lg p-8 flex flex-column">
+                <div class="bg-gray-50 overflow-hidden shadow-sm sm:rounded-t-lg p-8 flex">
                     {{-- left --}}
                     <div class="flex-1">
                         <div class="mb-6">
@@ -23,13 +22,14 @@
                         {{-- customer --}}
                         <div class="flex">
                             {{-- avatar --}}
-                            <div class="h-14 w-14 rounded-full bg-{{ $ticket->creating_user->color() }}-600 text-white text-xl flex justify-center items-center">
-                                {{ $ticket->creating_user->initials() }}
-                            </div>
+                            <x-user-avatar :user="$ticket->creating_user" :colors="config('custom.user_palette')"  class="h-14 w-14 text-xl"/>
+                            {{-- info --}}
                             <div class="ml-4">
+                                {{-- name --}}
                                 <div class="text-lg">
                                     {{ $ticket->creating_user->name }} ( <a class="underline text-blue-500" href="mailto:{{$ticket->creating_user->email}}">{{ $ticket->creating_user->email }}</a> )
                                 </div>
+                                {{-- created at --}}
                                 <div class="text-gray-400">
                                     {{ $ticket->created_at->toFormattedDateString() }}
                                 </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 {{-- bottom --}}
-                <div class="bg-white overflow-hidden shadow-sm p-6 flex flex-column">
+                <div class="bg-white overflow-hidden shadow-sm p-6 flex">
                     {{-- content --}}
                     <div class="flex-1">
                         <div class="text-lg">
@@ -63,10 +63,37 @@
                     </div>
                 </div>
                 {{-- comments --}}
+                @if($comments->isNotEmpty())
+                <div class="bg-white overflow-hidden shadow-sm flex flex-col">
+                    @foreach($comments as $comment)
+                        <div class="flex" id="comment{{ $comment->id }}">
+                            {{-- comment user --}}
+                            <div class="flex bg-gray-50 p-6">
+                                <x-user-avatar :user="$comment->user" :colors="config('custom.user_palette')" class="h-12 w-12"/>
+                                <div class="flex flex-col ml-4">
+                                    <span class="text-lg">
+                                        {{ $comment->user->name }}
+                                    </span>
+                                    <span class="text-sm text-gray-400">
+                                        {{
+                                            \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))
+                                                ->diff(\Carbon\Carbon::now())
+                                                ->format('%i' . ' ' . __('minutes ago'))}}
+                                    </span>
+                                </div>
+                            </div>
+                            {{-- comment info --}}
+                            <div class="flex p-6">
+                                {!! nl2br(e($comment->contents)) !!}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                @endif
+                {{-- comment form --}}
                 @can('comment',$ticket)
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex flex-column">
-                    <a href="#commentform" class="w-full"/>
-                    <form action="{{route('ticket.comment.store',['ticket' => $ticket])}}" method="POST">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex">
+                    <form action="{{route('ticket.comment.store',['ticket' => $ticket])}}" id="commentform" method="POST" class="w-full">
                         @csrf
                         @method('POST')
                         <div>

@@ -63,7 +63,7 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function color($colors = ['gray', 'indigo', 'green', 'red', 'yellow',  'blue',  'purple', 'pink'])
+    public function color($colors)
     {
         return $colors[strlen($this->name) % count($colors)];
     }

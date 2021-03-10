@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -15,7 +16,7 @@ class TicketController extends Controller
     {
         $request->validate([
             'subject' => 'required|max:40',
-            'contents' => 'required',
+            'contents' => 'required|max:65535',
             'category' => 'required|exists:categories,id'
         ]);
 
@@ -35,7 +36,7 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        return view('pages.ticket.ticket_show')->with('ticket', $ticket);
+        return view('pages.ticket.ticket_show')->with('ticket', $ticket)->with('comments', $ticket->comments);
     }
 
     public function index(Request $request,$status)

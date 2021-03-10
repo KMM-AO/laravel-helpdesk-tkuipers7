@@ -14,7 +14,7 @@ class Comment extends Model
         return $this->belongsTo(Ticket::class);
     }
 
-    public function created_by()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

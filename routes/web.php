@@ -24,66 +24,72 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function() {
 
     // dashboard routes
-    Route::group(['prefix' => '/dashboard'], function () {
+    Route::group(['prefix' => 'dashboard'], function () {
 
         // main dashboard
         Route::get('/', function () {
             return view('dashboard');
         })->name('dashboard');
 
-        // index applicants
-        Route::get('/applicant/index', [ApplicantController::class, 'index'])
-            ->middleware('can:list,App\Models\Applicant')
-            ->name('dashboard.applicant.index');
+
     });
 
     //applicant routes
-    Route::group(['prefix' => '/applicant/{applicant}'], function () {
+    Route::group(['prefix' => 'applicant', 'name' => 'applicant.'], function () {
 
-        // promote applicant to employee
-        Route::put('/employ', [ApplicantController::class, 'employ'])
-            ->middleware('can:employ,applicant')
-            ->name('applicant.employ');
+        // index applicants
+        Route::get('/index', [ApplicantController::class, 'index'])
+            ->middleware('can:list,App\Models\Applicant')
+            ->name('index');
 
-        // queue a applicant
-        Route::put('/queue', [ApplicantController::class, 'queue'])
-            ->middleware('can:queue,applicant')
-            ->name('applicant.queue');
+        // applicant routes with model
+        Route::prefix('{applicant}')->group(function () {
 
-        // delete a applicant
-        Route::delete('/reject', [ApplicantController::class, 'reject'])
-            ->middleware('can:reject,applicant')
-            ->name('applicant.reject');
+            // promote applicant to employee
+            Route::put('/employ', [ApplicantController::class, 'employ'])
+                ->middleware('can:employ,applicant')
+                ->name('employ');
+
+            // queue a applicant
+            Route::put('/queue', [ApplicantController::class, 'queue'])
+                ->middleware('can:queue,applicant')
+                ->name('queue');
+
+            // delete a applicant
+            Route::delete('/reject', [ApplicantController::class, 'reject'])
+                ->middleware('can:reject,applicant')
+                ->name('reject');
+        });
     });
 
     // ticket routes
-    Route::group(['prefix' => '/ticket'], function () {
+    Route::group(['prefix' => 'ticket', 'name' => 'ticket.'], function () {
 
         // store a ticket
         Route::post('/', [TicketController::class, 'store'])
            ->middleware('can:create,App\Models\ticket')
-           ->name('ticket.store');
+           ->name('store');
 
         // template to create a ticket
         Route::get('/create', [TicketController::class, 'create'])
            ->middleware('can:create,App\Models\ticket')
-           ->name('ticket.create');
+           ->name('create');
 
         // index of tickets
         Route::get('/index/{status}', [TicketController::class, 'index'])
             ->middleware('can:list,App\Models\ticket')
-            ->name('ticket.index')
+            ->name('index')
             ->where('status','open|closed|waiting|processed',);
 
         // read a ticket
         Route::get('/{any_ticket}', [TicketController::class, 'show'])
             ->middleware('can:read,any_ticket')
-            ->name('ticket.show');
+            ->name('show');
 
         // store a comment on a ticket
         Route::post('/{ticket}/comment', [CommentController::class, 'store'])
             ->middleware('can:comment,ticket')
-            ->name('ticket.comment.store');
+            ->name('comment.store');
     });
 });
 
