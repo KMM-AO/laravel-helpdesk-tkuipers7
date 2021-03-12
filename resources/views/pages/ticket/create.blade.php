@@ -4,7 +4,6 @@
             {{ __('Create a ticket') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -15,7 +14,7 @@
                     <div>
                         <x-errored-label for="subject" :value="__('Subject')" :field="'subject'" />
 
-                        <x-input id="subject" class="block mt-1 w-full" type="text" name="subject" :value="old('subject')" autofocus />
+                        <x-input id="subject" class="block mt-1 w-full" type="text" name="subject" :value="old('subject')" :autofocus="$errors->isEmpty()"/>
                     </div>
 
                     <!-- Content -->
