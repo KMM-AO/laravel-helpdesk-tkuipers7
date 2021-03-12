@@ -83,10 +83,7 @@
                                         @endcan
                                     </span>
                                     <span class="text-sm text-gray-400">
-                                        {{
-                                            \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))
-                                                ->diff(\Carbon\Carbon::now())
-                                                ->format('%h' . ' ' . __('hours') . ' ' . __('and') . ' ' . '%i' . ' ' . __('minutes ago'))}}
+                                        {{ $comment->created_at->diffForHumans(\Carbon\Carbon::now()) }}
                                     </span>
                                 </div>
                             </div>
@@ -101,7 +98,7 @@
                 {{-- comment form --}}
                 @can('comment',$ticket)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex">
-                    <form action="{{route('ticket.comment.store',['ticket' => $ticket])}}" id="commentform" method="POST" class="w-full">
+                    <form action="{{route('ticket.comment',['ticket' => $ticket])}}" id="commentform" method="POST" class="w-full">
                         @csrf
                         @method('POST')
                         <div>
