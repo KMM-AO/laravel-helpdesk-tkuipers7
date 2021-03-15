@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -45,7 +46,15 @@ class TicketController extends Controller
         return redirect()->route('dashboard')->with('status', 'Ticket is closed');
     }
 
-    public function index(Request $request,$status)
+    public function claim (Request $request, Ticket $ticket)
+    {
+        $ticket->processing_users()->save($request->user());
+
+        return redirect()->route('ticket.show',['any_ticket' => $ticket]);
+    }
+
+
+    public function index(Request $request, $status)
     {
         $user = $request->user();
 

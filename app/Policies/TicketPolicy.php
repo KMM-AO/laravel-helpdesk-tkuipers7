@@ -55,4 +55,10 @@ class TicketPolicy
         return $ticket->status() !== 'closed' &&
             ($auth_user->is($ticket->creating_user) || $ticket->processing_users->contains($auth_user));
     }
+
+    public function claim(User $auth_user, Ticket $ticket)
+    {
+        return $ticket->status() === 'waiting' &&
+            in_array($auth_user->role_id, [Role::EMPLOYEE]);
+    }
 }

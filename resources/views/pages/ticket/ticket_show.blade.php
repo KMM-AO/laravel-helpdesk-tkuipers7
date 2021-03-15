@@ -53,13 +53,18 @@
                         @endcan
                     </div>
                     @can('close',$ticket)
-                        <div>
-                            <form action="{{route('ticket.close',['ticket' => $ticket])}}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <x-button>{{ __('close ticket') }}</x-button>
-                            </form>
-                        </div>
+                        <form action="{{route('ticket.close',['ticket' => $ticket])}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <x-button>{{ __('close ticket') }}</x-button>
+                        </form>
+                    @endcan
+                    @can('claim',$ticket)
+                        <form action="{{route('ticket.claim',['ticket' => $ticket])}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <x-button>{{ __('claim ticket') }}</x-button>
+                        </form>
                     @endcan
                 </div>
                 {{-- bottom --}}

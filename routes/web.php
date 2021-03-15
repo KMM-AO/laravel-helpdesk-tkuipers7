@@ -91,6 +91,11 @@ Route::group(['middleware' => 'auth'], function() {
             Route::put('/close', [TicketController::class, 'close'])
                 ->middleware('can:close,ticket')
                 ->name('close');
+
+            // claim a ticket
+            Route::put('/claim', [TicketController::class, 'claim'])
+                ->middleware('can:claim,ticket')
+                ->name('claim');
         });
 
     });
