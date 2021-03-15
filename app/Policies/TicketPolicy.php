@@ -46,6 +46,13 @@ class TicketPolicy
 
     public function comment(User $auth_user, Ticket $ticket)
     {
-        return $auth_user->is($ticket->creating_user) || $ticket->processing_users->contains($auth_user);
+        return $ticket->status() !== 'closed' &&
+            ($auth_user->is($ticket->creating_user) || $ticket->processing_users->contains($auth_user));
+    }
+
+    public function close(User $auth_user, Ticket $ticket)
+    {
+        return $ticket->status() !== 'closed' &&
+            ($auth_user->is($ticket->creating_user) || $ticket->processing_users->contains($auth_user));
     }
 }

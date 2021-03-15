@@ -23,19 +23,13 @@ Route::get('/', function () {
 // auth routes
 Route::group(['middleware' => 'auth'], function() {
 
-    // dashboard routes
-    Route::group(['prefix' => 'dashboard'], function () {
-
-        // main dashboard
-        Route::get('/', function () {
-            return view('dashboard');
-        })->name('dashboard');
-
-
-    });
+    // main dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     //applicant routes
-    Route::group(['prefix' => 'applicant', 'as' => 'applicant.'], function () {
+    Route::group(['prefix' => '/applicant', 'as' => 'applicant.'], function () {
 
         // index applicants
         Route::get('/index', [ApplicantController::class, 'index'])
@@ -43,7 +37,7 @@ Route::group(['middleware' => 'auth'], function() {
             ->name('index');
 
         // applicant routes with model
-        Route::prefix('{applicant}')->group(function () {
+        Route::prefix('/{applicant}')->group(function () {
 
             // promote applicant to employee
             Route::put('/employ', [ApplicantController::class, 'employ'])
@@ -63,7 +57,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     // ticket routes
-    Route::group(['prefix' => 'ticket', 'as' => 'ticket.'], function () {
+    Route::group(['prefix' => '/ticket', 'as' => 'ticket.'], function () {
 
         // store a ticket
         Route::post('/', [TicketController::class, 'store'])
@@ -78,18 +72,27 @@ Route::group(['middleware' => 'auth'], function() {
         // index of tickets
         Route::get('/index/{status}', [TicketController::class, 'index'])
             ->middleware('can:list,App\Models\ticket')
-            ->name('index')
-            ->where('status','open|closed|waiting|processed',);
+            ->where('status','open|closed|waiting|processed',)
+            ->name('index');
 
-        // read a ticket
+        // read any ticket
         Route::get('/{any_ticket}', [TicketController::class, 'show'])
             ->middleware('can:read,any_ticket')
             ->name('show');
 
-        // store a comment on a ticket
-        Route::post('/{ticket}/comment', [CommentController::class, 'store'])
-            ->middleware('can:comment,ticket')
-            ->name('comment.store');
+        // routes without soft deleted tickets
+        Route::prefix('/{ticket}')->group(function(){
+            // store a comment on a ticket
+            Route::post('/comment', [CommentController::class, 'store'])
+                ->middleware('can:comment,ticket')
+                ->name('comment');
+
+            // close a ticket
+            Route::put('/close', [TicketController::class, 'close'])
+                ->middleware('can:close,ticket')
+                ->name('close');
+        });
+
     });
 });
 

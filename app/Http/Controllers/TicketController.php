@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Ticket;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -37,6 +36,13 @@ class TicketController extends Controller
     public function show(Ticket $ticket)
     {
         return view('pages.ticket.ticket_show')->with('ticket', $ticket)->with('comments', $ticket->comments);
+    }
+
+    public function close(Ticket $ticket)
+    {
+        $ticket->delete();
+
+        return redirect()->route('dashboard')->with('status', 'Ticket is closed');
     }
 
     public function index(Request $request,$status)

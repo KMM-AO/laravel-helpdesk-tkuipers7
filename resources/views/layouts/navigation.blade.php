@@ -18,7 +18,7 @@
                     </x-nav-link>
                     <!-- Applicant index -->
                     @can('list', App\Models\Applicant::class)
-                        <x-nav-link :href="route('dashboard.applicant.index')" :active="request()->routeIs('dashboard.applicant.index')">
+                        <x-nav-link :href="route('applicant.index')" :active="request()->routeIs('applicant.index')">
                             {{ __('Applicants') }}
                         </x-nav-link>
                     @endcan

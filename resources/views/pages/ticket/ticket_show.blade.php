@@ -52,6 +52,15 @@
                             </div>
                         @endcan
                     </div>
+                    @can('close',$ticket)
+                        <div>
+                            <form action="{{route('ticket.close',['ticket' => $ticket])}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <x-button>{{ __('close ticket') }}</x-button>
+                            </form>
+                        </div>
+                    @endcan
                 </div>
                 {{-- bottom --}}
                 <div class="bg-white overflow-hidden shadow-sm p-6 flex">
@@ -100,7 +109,6 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-b-lg p-6 flex">
                     <form action="{{route('ticket.comment',['ticket' => $ticket])}}" id="commentform" method="POST" class="w-full">
                         @csrf
-                        @method('POST')
                         <div>
                             <x-errored-label for="contents" :value="__('Comment')" :field="'contents'" class="block text-lg font-medium text-gray-700"/>
                             <div class="mt-1 w-full">
