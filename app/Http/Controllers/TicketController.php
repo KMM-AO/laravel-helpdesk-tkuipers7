@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Role;
 use App\Models\Ticket;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -43,16 +44,20 @@ class TicketController extends Controller
     {
         $ticket->delete();
 
-        return redirect()->route('dashboard')->with('status', 'Ticket is closed');
+        return back();
     }
 
     public function claim (Request $request, Ticket $ticket)
     {
-        $ticket->processing_users()->save($request->user());
+        $ticket->processing_users()->attach($request->user(), ['created_at' => Carbon::now()]);
 
-        return redirect()->route('ticket.show',['any_ticket' => $ticket]);
+        return redirect()->route('ticket.show',$ticket);
     }
 
+    public function callin(Ticket $ticket, User $user)
+    {
+        return "<h1>$ticket->subject</h1><h2>$user->name</h2>";
+    }
 
     public function index(Request $request, $status)
     {
