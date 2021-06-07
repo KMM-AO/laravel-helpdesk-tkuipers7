@@ -99,8 +99,12 @@ Route::group(['middleware' => 'auth'], function() {
 
             // callin a employee to a ticket
             Route::put('/callin/{user}', [TicketController::class, 'callin'])
-//                ->middleware('can:callin,ticket,user')
+                ->middleware('can:callin,ticket,user')
                 ->name('callin');
+
+            Route::put('/cease', [TicketController::class, 'cease'])
+                ->middleware('can:cease,ticket')
+                ->name('cease');
         });
 
     });

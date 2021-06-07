@@ -78,6 +78,15 @@
                             </x-dropdown>
                         </div>
                     @endcan
+                    @can('cease', $ticket)
+                        <div class="mr-3">
+                            <form action="{{route('ticket.cease',['ticket' => $ticket])}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <x-button>{{ __('Cease Ticket') }}</x-button>
+                            </form>
+                        </div>
+                    @endcan
                     @can('close',$ticket)
                         <form action="{{route('ticket.close',['ticket' => $ticket])}}" method="POST">
                             @csrf

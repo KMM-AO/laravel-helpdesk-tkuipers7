@@ -67,9 +67,18 @@ class TicketPolicy
         if (strtolower($ticket->status()) === 'closed') return false;
         if($ticket->processing_users->contains($auth_user) || $auth_user->role_id === Role::BOSS)
         {
-            if (isset($user)) return $ticket->not_processing_users->contains($user);
+            if (isset($user)) return $ticket->not_processing_users()->contains($user);
             return true;
         }
         return false;
+    }
+
+    public function cease(User $auth_user, Ticket $ticket)
+    {
+        if(strtolower($ticket->status()) !== 'processed') return false;
+        if(!$ticket->processing_users->contains($auth_user)) return false;
+        if($ticket->processing_users()->count() <= 1) return false;
+
+        return true;
     }
 }

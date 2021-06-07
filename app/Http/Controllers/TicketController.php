@@ -61,6 +61,13 @@ class TicketController extends Controller
         return redirect()->route('ticket.show',$ticket);
     }
 
+    public function cease(Request $request, Ticket $ticket)
+    {
+        $ticket->processing_users()->detach($request->user());
+
+        return redirect()->route('ticket.show',$ticket);
+    }
+
     public function index(Request $request, $status)
     {
         $user = $request->user();
