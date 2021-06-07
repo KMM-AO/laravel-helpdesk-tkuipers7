@@ -96,6 +96,11 @@ Route::group(['middleware' => 'auth'], function() {
             Route::put('/claim', [TicketController::class, 'claim'])
                 ->middleware('can:claim,ticket')
                 ->name('claim');
+
+            // callin a employee to a ticket
+            Route::put('/callin/{user}', [TicketController::class, 'callin'])
+//                ->middleware('can:callin,ticket,user')
+                ->name('callin');
         });
 
     });

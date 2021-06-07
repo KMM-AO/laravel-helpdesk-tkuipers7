@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-auth-session-status :status="session('status')" class="mb-4 bg-green-500"/>
             <div class="divide-y divide-gray-300 divide-solid">
-                <div class="bg-gray-50 overflow-hidden shadow-sm sm:rounded-t-lg p-8 flex">
+                <div class="bg-gray-50 shadow-sm sm:rounded-t-lg p-8 flex">
                     {{-- left --}}
                     <div class="flex-1">
                         <div class="mb-6">
@@ -52,6 +52,32 @@
                             </div>
                         @endcan
                     </div>
+                    @can('callin', $ticket)
+                        <div class="mr-3">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    @if($ticket->not_processing_users()->isEmpty())
+                                        <x-button class="disabled:opacity-50" disabled>{{ __('call in employee') }}</x-button>
+                                    @else
+                                        <x-button>{{ __('call in employee') }}</x-button>
+                                    @endif
+                                </x-slot>
+                                <x-slot name="content">
+                                    @foreach($ticket->not_processing_users() as $user)
+                                        <form method="POST" action="{{ route('ticket.callin', ['ticket' => $ticket, 'user' => $user]) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <x-dropdown-link class="cursor-pointer"
+                                                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                                {{ $user->name }}( {{ $user->role->name }} )
+                                            </x-dropdown-link>
+                                        </form>
+                                    @endforeach
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endcan
                     @can('close',$ticket)
                         <form action="{{route('ticket.close',['ticket' => $ticket])}}" method="POST">
                             @csrf

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +23,13 @@ class Ticket extends Model
     public function processing_users()
     {
         return $this->belongsToMany(User::class,'ticket_employee_user','ticket_id','employee_user_id');
+    }
+
+    public function not_processing_users()
+    {
+        return Role::find(Role::EMPLOYEE)->users()->whereDoesntHave('processed_tickets', function(Builder $query){
+            $query->where('id',$this->id);
+        })->get();
     }
 
     public function creating_user()
