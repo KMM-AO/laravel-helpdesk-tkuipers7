@@ -23,6 +23,7 @@ class CreateTicketEmployeeUserTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
+            $table->primary(['ticket_id','employee_user_id']);
         });
     }
 
