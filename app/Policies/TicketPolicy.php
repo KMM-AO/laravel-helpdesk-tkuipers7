@@ -75,7 +75,7 @@ class TicketPolicy
 
     public function cease(User $auth_user, Ticket $ticket)
     {
-        if(strtolower($ticket->status()) !== 'processed') return false;
+        if($ticket->trashed()) return false;
         if(!$ticket->processing_users->contains($auth_user)) return false;
         if($ticket->processing_users()->count() <= 1) return false;
 
