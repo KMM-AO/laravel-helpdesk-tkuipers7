@@ -56,7 +56,7 @@ class TicketController extends Controller
 
     public function callin(Ticket $ticket, User $user)
     {
-        $ticket->processing_users()->attach($user, ['created_at' => Carbon::now()]);
+        $ticket->processing_users()->attach($user);
 
         return redirect()->route('ticket.show',$ticket);
     }
