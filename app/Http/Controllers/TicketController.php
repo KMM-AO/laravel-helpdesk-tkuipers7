@@ -58,7 +58,7 @@ class TicketController extends Controller
     {
         $ticket->processing_users()->attach($user);
 
-        return redirect()->route('ticket.show',$ticket);
+        return back();
     }
 
     public function cease(Request $request, Ticket $ticket)
