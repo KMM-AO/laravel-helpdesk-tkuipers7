@@ -64,7 +64,7 @@ class TicketPolicy
 
     public function callin(User $auth_user, Ticket $ticket, User $user = null)
     {
-        if (strtolower($ticket->status()) === 'closed') return false;
+        if ($ticket->trashed()) return false;
         if($ticket->processing_users->contains($auth_user) || $auth_user->role_id === Role::BOSS)
         {
             if (isset($user)) return $ticket->not_processing_users()->contains($user);
