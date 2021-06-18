@@ -49,7 +49,7 @@ class TicketController extends Controller
 
     public function claim (Request $request, Ticket $ticket)
     {
-        $ticket->processing_users()->attach($request->user(), ['created_at' => Carbon::now()]);
+        $ticket->processing_users()->attach($request->user());
 
         return redirect()->route('ticket.show',$ticket);
     }
